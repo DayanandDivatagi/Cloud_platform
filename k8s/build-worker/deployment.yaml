@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: build-worker
+  namespace: intelligent-healing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: build-worker
+  template:
+    metadata:
+      labels:
+        app: build-worker
+    spec:
+      containers:
+        - name: build-worker
+          image: build-worker:latest
+          imagePullPolicy: Never
+          env:
+            - name: FAIL_MODE
+              value: "normal"
+          ports:
+            - containerPort: 8000
+
