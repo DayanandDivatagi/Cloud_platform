@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pipeline-service
+  namespace: intelligent-healing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pipeline-service
+  template:
+    metadata:
+      labels:
+        app: pipeline-service
+    spec:
+      containers:
+        - name: pipeline-service
+          image: pipeline-service:latest
+          imagePullPolicy: Never
+          env:
+            - name: FAIL_MODE
+              value: "normal"
+          ports:
+            - containerPort: 8000
+
